@@ -1,0 +1,1101 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(255, 193, 7, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 193, 7, 0.6);
+    }
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+}
+
+.animate-on-scroll.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+header.scrolled {
+    background: rgba(102, 126, 234, 0.95);
+    backdrop-filter: blur(20px);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    animation: fadeInLeft 1s ease-out;
+}
+
+.logo h1 {
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logo p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Desktop Navigation */
+.desktop-nav {
+    animation: fadeInRight 1s ease-out;
+}
+
+.desktop-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.desktop-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+}
+
+.desktop-nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.desktop-nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background: #ffd700;
+    transition: all 0.3s ease;
+}
+
+.desktop-nav a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+}
+
+.mobile-menu-btn span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(102, 126, 234, 0.98);
+    backdrop-filter: blur(20px);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-nav.active {
+    transform: translateY(0);
+}
+
+.mobile-nav ul {
+    list-style: none;
+    padding: 1rem 0;
+}
+
+.mobile-nav li {
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)), 
+                linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 150px 0 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff08" points="0,1000 1000,0 1000,1000"/></svg>');
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+.hero-content h2 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    background: linear-gradient(45deg, #ffffff, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.hero-content p {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 300;
+    opacity: 0.95;
+}
+
+.platforms {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.platform-logo {
+    background: white;
+    padding: 15px 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: all 0.4s ease;
+    animation: float 4s ease-in-out infinite;
+}
+
+.platform-logo:nth-child(2) {
+    animation-delay: -2s;
+}
+
+.platform-logo:hover {
+    transform: translateY(-10px) scale(1.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Services Section */
+.services {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    position: relative;
+}
+
+.services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffffff10"/></svg>') repeat;
+    opacity: 0.3;
+}
+
+.services h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 4rem;
+    color: white;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 2;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.service-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s ease;
+}
+
+.service-card:hover::before {
+    left: 100%;
+}
+
+.service-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+.service-card h3 {
+    color: #667eea;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.service-card p {
+    color: #555;
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+/* Cars Section */
+.cars {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    position: relative;
+}
+
+.cars h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.cars-description {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #666;
+    margin-bottom: 4rem;
+    font-weight: 300;
+}
+
+.cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.car-card {
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.car-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+.car-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.car-card:hover img {
+    transform: scale(1.1);
+}
+
+.car-info {
+    padding: 1.5rem;
+}
+
+.car-card h3 {
+    color: #333;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.car-card p {
+    color: #666;
+    font-weight: 400;
+}
+
+.car-features {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 3rem;
+    border-radius: 25px;
+    margin-top: 4rem;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.car-features h3 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.car-features ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.car-features li {
+    padding: 1rem;
+    position: relative;
+    padding-left: 3rem;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    font-weight: 400;
+}
+
+.car-features li:hover {
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateX(10px);
+}
+
+.car-features li:before {
+    content: "✓";
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #27ae60;
+    font-weight: bold;
+    font-size: 1.2rem;
+    background: rgba(39, 174, 96, 0.1);
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Advantages Section */
+.advantages {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.advantages::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: float 20s linear infinite;
+}
+
+.advantages h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 4rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
+}
+
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.advantage {
+    text-align: center;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
+}
+
+.advantage-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.advantage:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.advantage h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #ffd700;
+    font-weight: 600;
+}
+
+.advantage p {
+    font-weight: 300;
+    line-height: 1.8;
+}
+
+/* Contact Section */
+.contact {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+.contact h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 4rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.contact-item {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.contact-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.contact-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+}
+
+.contact-item h3 {
+    color: #667eea;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.contact-item p {
+    color: #666;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.contact-item a {
+    color: #667eea;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+    color: #764ba2;
+}
+
+.cta {
+    text-align: center;
+    background: white;
+    padding: 4rem;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+    background-size: 400% 400%;
+    animation: gradient 3s ease infinite;
+}
+
+.cta h3 {
+    color: #333;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.cta p {
+    color: #666;
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+}
+
+.cta-button {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 1.2rem 3rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    min-width: 200px;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+/* WhatsApp Float Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.whatsapp-float a {
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: #25d366;
+    border-radius: 50%;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.whatsapp-float a:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-icon {
+    color: white;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+}
+
+footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer p {
+    font-weight: 300;
+}
+
+.footer-platforms {
+    display: flex;
+    gap: 1rem;
+}
+
+.footer-platforms img {
+    background: white;
+    padding: 8px 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.footer-platforms img:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 30px;
+    }
+    
+    .services-grid,
+    .cars-grid,
+    .advantages-grid,
+    .contact-info {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Header Mobile */
+    .desktop-nav {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .mobile-nav {
+        display: block;
+    }
+    
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+    
+    .logo p {
+        font-size: 0.8rem;
+    }
+    
+    /* Hero Mobile */
+    .hero {
+        padding: 120px 0 80px;
+        min-height: 80vh;
+    }
+    
+    .hero-content h2 {
+        font-size: 2.2rem;
+        line-height: 1.2;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .platforms {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    .platform-logo {
+        padding: 12px 20px;
+    }
+    
+    /* Sections Mobile */
+    .services,
+    .cars,
+    .advantages,
+    .contact {
+        padding: 80px 0;
+    }
+    
+    .services h2,
+    .cars h2,
+    .advantages h2,
+    .contact h2 {
+        font-size: 2.2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .services-grid,
+    .advantages-grid,
+    .contact-info {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .cars-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+    
+    .service-card,
+    .contact-item,
+    .advantage {
+        padding: 2rem;
+    }
+    
+    .car-features {
+        padding: 2rem;
+    }
+    
+    .car-features ul {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .cta {
+        padding: 3rem 2rem;
+    }
+    
+    .cta h3 {
+        font-size: 1.8rem;
+    }
+    
+    .cta p {
+        font-size: 1.1rem;
+    }
+    
+    .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    /* Footer Mobile */
+    footer .container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .footer-platforms {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* Hero Extra Small */
+    .hero {
+        padding: 100px 0 60px;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    /* Sections Extra Small */
+    .services,
+    .cars,
+    .advantages,
+    .contact {
+        padding: 60px 0;
+    }
+    
+    .services h2,
+    .cars h2,
+    .advantages h2,
+    .contact h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+    
+    .service-card,
+    .contact-item,
+    .advantage,
+    .car-features {
+        padding: 1.5rem;
+    }
+    
+    .cta {
+        padding: 2rem 1.5rem;
+    }
+    
+    .cta h3 {
+        font-size: 1.5rem;
+    }
+    
+    .cta p {
+        font-size: 1rem;
+    }
+    
+    .car-card img {
+        height: 200px;
+    }
+    
+    .service-icon,
+    .advantage-icon,
+    .contact-icon {
+        font-size: 2.5rem;
+    }
+    
+    /* WhatsApp Button Mobile */
+    .whatsapp-float {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .whatsapp-float a {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .whatsapp-icon {
+        font-size: 1.5rem;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .service-card:hover,
+    .car-card:hover,
+    .advantage:hover,
+    .contact-item:hover {
+        transform: none;
+    }
+    
+    .platform-logo:hover,
+    .cta-button:hover {
+        transform: none;
+    }
+    
+    .service-card,
+    .car-card,
+    .advantage,
+    .contact-item {
+        transition: none;
+    }
+}
+
+/* Scroll animations */
+.fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.fade-in-left {
+    animation: fadeInLeft 0.8s ease-out forwards;
+}
+
+.fade-in-right {
+    animation: fadeInRight 0.8s ease-out forwards;
+}
+
+/* Loading animation */
+.loading {
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 0.2s forwards;
+}
